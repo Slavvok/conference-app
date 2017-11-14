@@ -1,0 +1,39 @@
+{% extends 'plan/base.html'%}
+{% block content %}
+    <a href="{% url 'plan:post_list' %}" class="icon-menu"><span class="glyphicon glyphicon-circle-arrow-left"></span></a>
+    <div class="post">
+		<h1>{{ post.title }}</h1>
+		<div class="date">
+			<p>Дата конференции: {{ post.conference_date }}</p>
+		</div>
+    <p>{{ post.text|linebreaksbr }}</p>
+      {% if post.members.all %}
+      <table>
+        <tr>
+          <th>Порядок выступления</th>
+          <th>ФИО</th>
+          <th>Тема доклада</th>
+          <th>Должность</th>
+          <th>Факультет</th>
+          <th>Курс</th>
+          <th>Группа</th>
+        </tr>
+
+        {% for part in post.members.all %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{part.name}} {{part.surname|slice:":1"}}. {{part.patronymic|slice:":1"}}.</td>
+          <td><a target="_newtab" href="{{part.presentation.upload.url}}">{{part.presentation}}</a></td>
+          <td>{{part.position}}</td>
+          <td>{{part.group.faculty}}</td>
+          <td>{{part.group.course}}</td>
+          <td>{{part.group}}</td>
+        </tr>
+
+        {% endfor %}
+      </table>
+      {% else %}
+      <p><b>Нет данных об участниках конференции</b></p>
+      {% endif %}
+      <a href="{% url 'plan:post_edit' pk=post.pk %}" class="icon-menu"><span class="glyphicon glyphicon-pencil"></span></a>
+{% endblock content %}

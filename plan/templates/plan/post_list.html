@@ -1,0 +1,12 @@
+{% extends 'plan/base.html'%}
+		{% block content %}
+        {% for post in posts %}
+            <div class="post">
+                <h1><a href="{% url 'plan:post_detail' pk=post.post_id %}">{{ post.title }}</a></h1>
+                <p>{{ post.text|linebreaksbr }}</p>
+					        <div class="date">
+                    <p>Дата проведения: {{ post.conference_date }}</p>
+                </div>
+            </div>
+        {% endfor %}
+		{% endblock %}
