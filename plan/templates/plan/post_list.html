@@ -1,6 +1,6 @@
 {% extends 'plan/base.html'%}
 		{% block content %}
-        {% for post in posts %}
+        {% for post in post_col %}
             <div class="post">
                 <h1><a href="{% url 'plan:post_detail' pk=post.post_id %}">{{ post.title }}</a></h1>
                 <p>{{ post.text|linebreaksbr }}</p>
@@ -9,4 +9,19 @@
                 </div>
             </div>
         {% endfor %}
+
+				<div class="pagination">
+					<span class="step-links">
+						{% if post_col.has_previous %}
+							<a href="?page={{
+								post_col.previous_page_number}}">previous</a>
+						{% endif %}
+						<span class="current">
+							Page{{post_col.number}} of {{post_col.paginator.num_pages}}
+						</span>
+						{% if post_col.has_next %}
+							<a href="?page={{post_col.next_page_number}}">next</a>
+						{% endif %}
+					</span>
+				</div>
 		{% endblock %}

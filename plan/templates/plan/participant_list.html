@@ -1,0 +1,26 @@
+{% extends 'plan/base.html' %}
+  {%block content%}
+    {% for participant in part_col %}
+      <div class="post">
+        <h1>{{forloop.counter }}<a href="{% url 'plan:participant_detail' pk=participant.pk %}">
+          {{ participant.name }} {{ participant.surname }} {{ participant.patronymic }}
+            </a>
+        </h1>
+      </div>
+    {% endfor %}
+
+      <div class="pagination">
+          <span class="step-links">
+              {% if part_col.has_previous %}
+                <a href="?page={{
+                  part_col.previous_page_number}}">previous</a>
+              {% endif %}
+              <span class="current">
+                Page{{part_col.number}} of {{part_col.paginator.num_pages}}
+              </span>
+              {% if part_col.has_next %}
+                  <a href="?page={{part_col.next_page_number}}">next</a>
+              {% endif %}
+          </span>
+      </div>
+{% endblock %}

@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^plan/new/$', views.post_new, name='post_new'),
     url(r'^plan/(?P<pk>\d+)/edit/$', views.post_edit, name='post_edit'),
 	url(r'^plan/(?P<pk>\d+)/publish/$', views.post_publish, name='post_publish'),
+    url(r'^members/$', views.participant_list, name='participant_list'),
+    url(r'^members/(?P<pk>\d+)/$', views.participant_detail, name='participant_detail'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

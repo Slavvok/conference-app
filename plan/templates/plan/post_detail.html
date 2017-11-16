@@ -22,7 +22,7 @@
         {% for part in post.members.all %}
         <tr>
           <td>{{forloop.counter}}</td>
-          <td>{{part.name}} {{part.surname|slice:":1"}}. {{part.patronymic|slice:":1"}}.</td>
+          <td><a href="{% url 'plan:participant_detail' pk=part.pk %}">{{part.name}} {{part.surname|slice:":1"}}. {{part.patronymic|slice:":1"}}.</td>
           <td><a target="_newtab" href="{{part.presentation.upload.url}}">{{part.presentation}}</a></td>
           <td>{{part.position}}</td>
           <td>{{part.group.faculty}}</td>

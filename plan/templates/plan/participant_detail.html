@@ -1,0 +1,21 @@
+{% extends 'plan/base.html'%}
+{% block content %}
+    <a href="{% url 'plan:participant_list' %}" class="icon-menu"><span class="glyphicon glyphicon-circle-arrow-left"></span></a>
+    <div class="post">
+        <table>
+          <tr>
+            <th>ФИО</th>
+            <th>Должность</th>
+            <th>Факультет</th>
+            <th>Курс</th>
+            <th>Группа</th>
+          </tr>
+          <tr>
+            <td>{{participant.name}} {{participant.surname|slice:":1"}}. {{participant.patronymic|slice:":1"}}.</td>
+            <td>{{participant.position}}</td>
+            <td>{{participant.group.faculty}}</td>
+            <td>{{participant.group.course}}</td>
+            <td>{{participant.group}}</td>
+          </tr>
+    </div>
+{% endblock %}

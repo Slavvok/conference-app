@@ -10,8 +10,15 @@
   <body>
     <div class="page-header">
       <h1><a href="/">Конференции.рф</a></h1>
-      <a href="{% url 'plan:post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-      
+      <a href="{% url 'plan:post_new' %}" class="top-menu" title="AddConf">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+      <a href="{% url 'plan:post_list' %}" class="top-menu" title="Home">
+        <span class="glyphicon glyphicon-home"></span>
+      </a>
+      <a href="{% url 'plan:participant_list' %}" class="top-menu" title="Members">
+        <span class="glyphicon glyphicon-user"></span>
+      </a>
 
     </div>
     <div class="content container">

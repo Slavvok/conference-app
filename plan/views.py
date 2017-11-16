@@ -2,15 +2,46 @@ from django.shortcuts import get_object_or_404, render, redirect, reverse, HttpR
 from django.utils import timezone
 from django.http import FileResponse
 from django.forms import inlineformset_factory
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Post, Participant
 from .forms import PostForm, ParticipantForm
 # Create your views here.
-
+'''
 def post_list(request):
     posts = Post.objects.order_by('published_date')[:5]
     context = {'posts': posts}
     return render(request, 'plan/post_list.html', context)
+'''
+def post_list(request):
+    posts = Post.objects.order_by('published_date')
+    paginator = Paginator(posts, 5)
+    page = request.GET.get('page')
+    try:
+        post_col = paginator.page(page)
+    except PageNotAnInteger:
+        post_col = paginator.page(1)
+    except EmptyPage:
+        post_col = paginator.page(paginator.num_pages)
+    context = {'post_col': post_col}
+    return render(request, 'plan/post_list.html', context)
+
+def participant_list(request):
+    participants = Participant.objects.order_by('name')
+    paginator = Paginator(participants, 10)
+    page = request.GET.get('page')
+    try:
+        part_col = paginator.page(page)
+    except PageNotAnInteger:
+        part_col = paginator.page(1)
+    except EmptyPage:
+        part_col = paginator.page(paginator.num_pages)
+    context = {'part_col': part_col}
+    return render(request, 'plan/participant_list.html', context)
+
+def participant_detail(request, pk):
+    participant = get_object_or_404(Participant, pk=pk)
+    return render(request, 'plan/participant_detail.html', {'participant': participant})
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
